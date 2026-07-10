@@ -37,18 +37,33 @@
         .nav-pill.active { background: #FF6700; color: white; }
         .calc-slider { -webkit-appearance: none; height: 8px; border-radius: 4px; outline: none; }
         .calc-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #FF6700; cursor: pointer; box-shadow: 0 2px 8px rgba(255,103,0,0.3); }
+        /* 移動端導航欄 */
+        @media (max-width: 640px) {
+            .desktop-tabs { display: none !important; }
+            .mobile-header { flex-wrap: wrap; height: auto !important; padding: 8px 0 !important; }
+            .mobile-tabs { display: flex !important; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 4px; padding: 4px 0; }
+            .mobile-tabs::-webkit-scrollbar { display: none; }
+            .mobile-tab-btn { flex-shrink: 0; padding: 6px 12px !important; font-size: 11px !important; }
+            .quiz-option { padding: 12px !important; }
+            .quiz-option .font-semibold { font-size: 13px !important; }
+            .quiz-option .text-xs { font-size: 11px !important; }
+        }
+        @media (min-width: 641px) {
+            .mobile-tabs { display: none !important; }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
     <!-- 導航欄 -->
     <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-miOrange rounded-lg flex items-center justify-center text-white font-bold text-lg">M</div>
-                <span class="text-xl font-bold tracking-tight text-gray-900">Xiaomi <span class="text-miOrange font-normal">平板選購助手</span></span>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 mobile-header flex items-center justify-between">
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 bg-miOrange rounded-lg flex items-center justify-center text-white font-bold text-base sm:text-lg">M</div>
+                <span class="text-base sm:text-xl font-bold tracking-tight text-gray-900">Xiaomi <span class="text-miOrange font-normal">平板選購助手</span></span>
             </div>
-            <div class="flex space-x-1 bg-gray-100 p-1 rounded-full">
+            <!-- 桌面端 Tab -->
+            <div class="desktop-tabs flex space-x-1 bg-gray-100 p-1 rounded-full">
                 <button onclick="switchTab('quiz')" id="tab-btn-quiz" class="nav-pill active px-3 py-1.5 rounded-full text-xs font-medium transition-all">🎯 智能推薦</button>
                 <button onclick="switchTab('catalog')" id="tab-btn-catalog" class="nav-pill px-3 py-1.5 rounded-full text-xs font-medium text-gray-600 transition-all">📱 全部機型</button>
                 <button onclick="switchTab('guide')" id="tab-btn-guide" class="nav-pill px-3 py-1.5 rounded-full text-xs font-medium text-gray-600 transition-all">📖 選購指南</button>
@@ -57,33 +72,43 @@
                     ❤️ 收藏 <span id="fav-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
                 </button>
             </div>
+            <!-- 手機端 Tab（橫向滾動） -->
+            <div class="mobile-tabs">
+                <button onclick="switchTab('quiz')" id="mob-tab-quiz" class="mobile-tab-btn nav-pill active rounded-full text-[11px] font-medium transition-all whitespace-nowrap">🎯 推薦</button>
+                <button onclick="switchTab('catalog')" id="mob-tab-catalog" class="mobile-tab-btn nav-pill rounded-full text-[11px] font-medium text-gray-600 transition-all whitespace-nowrap">📱 機型</button>
+                <button onclick="switchTab('guide')" id="mob-tab-guide" class="mobile-tab-btn nav-pill rounded-full text-[11px] font-medium text-gray-600 transition-all whitespace-nowrap">📖 指南</button>
+                <button onclick="switchTab('calculator')" id="mob-tab-calculator" class="mobile-tab-btn nav-pill rounded-full text-[11px] font-medium text-gray-600 transition-all whitespace-nowrap">🧮 計算</button>
+                <button onclick="switchTab('favorites')" id="mob-tab-favorites" class="mobile-tab-btn nav-pill rounded-full text-[11px] font-medium text-gray-600 transition-all whitespace-nowrap relative">
+                    ❤️ <span id="mob-fav-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+            </div>
         </div>
     </header>
 
     <!-- 主體內容 -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
         <!-- 橫幅導言 -->
-        <div class="text-center mb-10">
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">尋找最適合您的小米平板</h1>
-            <p class="mt-3 text-lg text-gray-500 max-w-2xl mx-auto">回答 5 個簡單問題，AI 為您推薦最佳機型。或直接瀏覽產品目錄、預算計算，一站式搞定。</p>
+        <div class="text-center mb-6 sm:mb-10">
+            <h1 class="text-xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">尋找最適合您的小米平板</h1>
+            <p class="mt-2 sm:mt-3 text-sm sm:text-lg text-gray-500 max-w-2xl mx-auto">回答 5 個簡單問題，AI 為您推薦最佳機型。或直接瀏覽產品目錄、預算計算，一站式搞定。</p>
         </div>
 
         <!-- ================= TAB 1: 智能推薦問答 ================= -->
         <section id="section-quiz" class="block max-w-3xl mx-auto">
-            <div id="quiz-card" class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 sm:p-10 transition-all duration-300"></div>
+            <div id="quiz-card" class="bg-white rounded-2xl shadow-md border border-gray-100 p-4 sm:p-10 transition-all duration-300"></div>
             <div id="result-card" class="hidden space-y-8"></div>
         </section>
 
         <!-- ================= TAB 2: 產品目錄 ================= -->
         <section id="section-catalog" class="hidden">
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6 flex flex-wrap items-center justify-between gap-4">
-                <div class="flex flex-wrap items-center gap-3">
-                    <span class="text-sm font-medium text-gray-500">篩選系列：</span>
-                    <button onclick="filterCatalog('all')" class="filter-btn px-3 py-1 rounded-full text-xs font-medium bg-miOrange text-white">全部</button>
-                    <button onclick="filterCatalog('Xiaomi')" class="filter-btn px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200">Xiaomi 旗艦系列</button>
-                    <button onclick="filterCatalog('Redmi')" class="filter-btn px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200">Redmi 性價比之選</button>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-3 sm:p-4 mb-4 sm:mb-6 flex flex-col sm:flex-row flex-wrap items-start sm:items-center justify-between gap-3">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs sm:text-sm font-medium text-gray-500">篩選：</span>
+                    <button onclick="filterCatalog('all')" class="filter-btn px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-medium bg-miOrange text-white">全部</button>
+                    <button onclick="filterCatalog('Xiaomi')" class="filter-btn px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200">Xiaomi</button>
+                    <button onclick="filterCatalog('Redmi')" class="filter-btn px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-medium bg-gray-100 text-gray-600 hover:bg-gray-200">Redmi</button>
                 </div>
-                <select onchange="sortCatalog(this.value)" class="text-xs border border-gray-200 rounded-lg px-3 py-1.5 bg-white">
+                <select onchange="sortCatalog(this.value)" class="text-xs border border-gray-200 rounded-lg px-3 py-1.5 bg-white w-full sm:w-auto">
                     <option value="price-asc">價格 低→高</option>
                     <option value="price-desc">價格 高→低</option>
                     <option value="rating">評分最高</option>
@@ -113,14 +138,14 @@
 
     <!-- 對比列 (抽屜) -->
     <div id="compare-drawer" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl transform translate-y-full transition-transform duration-300 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-3 py-3 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
-                    ⚖️ 產品規格對比 <span id="compare-count" class="bg-miOrange text-white text-xs px-2 py-0.5 rounded-full">0</span>
+                <h3 class="text-base sm:text-lg font-bold text-gray-900 flex items-center gap-2">
+                    ⚖️ 對比 <span id="compare-count" class="bg-miOrange text-white text-xs px-2 py-0.5 rounded-full">0</span>
                 </h3>
                 <div class="flex gap-2">
-                    <button onclick="openCompareModal()" class="px-5 py-2 bg-miOrange text-white rounded-lg text-sm font-medium hover:bg-opacity-90 transition-all">立即橫向對比</button>
-                    <button onclick="clearCompare()" class="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all">清空</button>
+                    <button onclick="openCompareModal()" class="px-3 sm:px-5 py-2 bg-miOrange text-white rounded-lg text-xs sm:text-sm font-medium hover:bg-opacity-90 transition-all">對比</button>
+                    <button onclick="clearCompare()" class="px-3 sm:px-4 py-2 border border-gray-300 rounded-lg text-xs sm:text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all">清空</button>
                 </div>
             </div>
             <div id="compare-chips" class="flex flex-wrap gap-3"></div>
@@ -128,13 +153,13 @@
     </div>
 
     <!-- 對比詳情彈窗 -->
-    <div id="compare-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div id="compare-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-2 sm:p-4">
         <div class="bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
-            <div class="p-6 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white z-10">
-                <h3 class="text-xl font-bold text-gray-900">詳細規格對比</h3>
+            <div class="p-4 sm:p-6 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white z-10">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-900">詳細規格對比</h3>
                 <button onclick="closeCompareModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-semibold">&times;</button>
             </div>
-            <div class="p-6 overflow-x-auto">
+            <div class="p-3 sm:p-6 overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead><tr id="compare-table-headers" class="border-b-2 border-gray-200"></tr></thead>
                     <tbody id="compare-table-body" class="divide-y divide-gray-100"></tbody>
@@ -144,7 +169,7 @@
     </div>
 
     <!-- 頁尾 -->
-    <footer class="bg-white border-t border-gray-200 mt-12 py-6">
+    <footer class="bg-white border-t border-gray-200 mt-8 sm:mt-12 py-4 sm:py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
             <p>© 2026 小米香港官網產品線參考 · 數據僅供參考，以官網為準 · Made with 🦞</p>
         </div>
@@ -202,10 +227,15 @@ function switchTab(tab) {
     ['quiz','catalog','guide','calculator','favorites'].forEach(t => {
         const sec = document.getElementById('section-' + t);
         const btn = document.getElementById('tab-btn-' + t);
+        const mobBtn = document.getElementById('mob-tab-' + t);
         if (sec) sec.classList.toggle('hidden', t !== tab);
         if (btn) {
             btn.classList.toggle('active', t === tab);
             btn.classList.toggle('text-gray-600', t !== tab);
+        }
+        if (mobBtn) {
+            mobBtn.classList.toggle('active', t === tab);
+            mobBtn.classList.toggle('text-gray-600', t !== tab);
         }
     });
     if (tab === 'catalog') renderCatalog(currentCatalogFilter);
@@ -272,12 +302,12 @@ function renderQuiz() {
                 <div class="bg-miOrange h-full transition-all duration-300" style="width:${progress}%"></div>
             </div>
         </div>
-        <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">${data.title}</h2>
-        <div class="grid grid-cols-2 gap-3">
+        <h2 class="text-lg sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">${data.title}</h2>
+        <div class="grid grid-cols-2 gap-2 sm:gap-3">
             ${data.options.map(opt => `
-                <button onclick="handleAnswer('${opt.value}')" class="quiz-option text-left p-4 rounded-xl border-2 border-gray-200 hover:border-miOrange hover:bg-orange-50/30 group">
-                    <div class="font-semibold text-gray-800 group-hover:text-miOrange text-sm">${opt.label}</div>
-                    <div class="text-xs text-gray-500 mt-1">${opt.desc}</div>
+                <button onclick="handleAnswer('${opt.value}')" class="quiz-option text-left p-3 sm:p-4 rounded-xl border-2 border-gray-200 hover:border-miOrange hover:bg-orange-50/30 group">
+                    <div class="font-semibold text-gray-800 group-hover:text-miOrange text-xs sm:text-sm">${opt.label}</div>
+                    <div class="text-[10px] sm:text-xs text-gray-500 mt-1 hidden sm:block">${opt.desc}</div>
                 </button>
             `).join('')}
         </div>
@@ -377,15 +407,15 @@ function showRecommendation() {
     const top = results[0], runnerUps = results.slice(1,4);
 
     rc.innerHTML = `
-        <div class="bg-gradient-to-br from-orange-50 to-white rounded-2xl shadow-lg border-2 border-miOrange overflow-hidden p-6 sm:p-10 relative fade-in">
+        <div class="bg-gradient-to-br from-orange-50 to-white rounded-2xl shadow-lg border-2 border-miOrange overflow-hidden p-4 sm:p-10 relative fade-in">
             <div class="absolute top-4 right-4 bg-miOrange text-white text-xs font-bold px-3 py-1 rounded-full">最佳推薦 Match!</div>
             <div class="flex items-center gap-2 mb-2">
                 <span class="inline-block px-3 py-1 bg-orange-100 text-miOrange rounded-full text-xs font-bold">🎯 契合度 ${top.score}%</span>
                 <span class="inline-block px-3 py-1 bg-red-100 text-red-600 rounded-full text-xs font-bold">${top.product.salesBadge}</span>
             </div>
-            <h2 class="text-3xl font-extrabold text-gray-900 mb-1">${top.product.name}</h2>
-            <p class="text-sm text-miOrange font-semibold mb-3">💬 「${top.product.salesMsg}」</p>
-            <p class="text-xl font-bold text-miOrange mb-4">HK$ ${top.product.price.toLocaleString()} 起</p>
+            <h2 class="text-xl sm:text-3xl font-extrabold text-gray-900 mb-1">${top.product.name}</h2>
+            <p class="text-xs sm:text-sm text-miOrange font-semibold mb-2 sm:mb-3">💬 「${top.product.salesMsg}」</p>
+            <p class="text-lg sm:text-xl font-bold text-miOrange mb-3 sm:mb-4">HK$ ${top.product.price.toLocaleString()} 起</p>
             <p class="text-gray-600 mb-6">${top.product.desc}</p>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-gray-100 pt-6 mb-6">
                 <div><span class="text-xs font-semibold text-gray-400">螢幕</span><p class="text-sm font-medium">${top.product.size}</p></div>
@@ -441,7 +471,7 @@ function renderCatalog(filter='all') {
 
     grid.innerHTML = filtered.map(p => `
         <div class="product-card bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm flex flex-col justify-between">
-            <div class="p-5">
+            <div class="p-3 sm:p-5">
                 <div class="flex justify-between items-start mb-2">
                     <div class="flex items-center gap-1.5">
                         <span class="px-2.5 py-1 ${p.series==='Xiaomi'?'bg-orange-100 text-miOrange':'bg-red-50 text-red-600'} rounded-lg text-xs font-extrabold uppercase">${p.series}</span>
@@ -499,8 +529,8 @@ function sortProducts(arr, key) {
 // ============================================================
 function renderGuide() {
     document.getElementById('guide-section').innerHTML = `
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div class="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 shadow-sm">
                 <h3 class="font-bold text-gray-900 mb-4">📌 按預算選</h3>
                 <div class="space-y-3 text-sm">
                     <div class="flex gap-2"><span>💰</span><div><strong>HK$799</strong><br>Redmi Pad SE 8.7 — 入門首選</div></div>
@@ -600,8 +630,14 @@ function toggleFav(id) {
 
 function updateFavBadge() {
     const badge = document.getElementById('fav-badge');
-    if (favorites.length>0) { badge.textContent=favorites.length; badge.classList.remove('hidden'); }
-    else badge.classList.add('hidden');
+    const mobBadge = document.getElementById('mob-fav-badge');
+    if (favorites.length>0) {
+        badge.textContent=favorites.length; badge.classList.remove('hidden');
+        if (mobBadge) { mobBadge.textContent=favorites.length; mobBadge.classList.remove('hidden'); }
+    } else {
+        badge.classList.add('hidden');
+        if (mobBadge) mobBadge.classList.add('hidden');
+    }
 }
 
 function renderFavorites() {

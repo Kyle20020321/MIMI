@@ -1,0 +1,24 @@
+{
+  "name": "mimi-tablet-guide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kyle20020321/MIMI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Kyle20020321/MIMI/issues"
+  },
+  "homepage": "https://github.com/Kyle20020321/MIMI#readme",
+  "dependencies": {
+    "playwright": "^1.61.1"
+  }
+}
