@@ -387,7 +387,7 @@ function showRecommendation() {
                             <span class="text-xs text-gray-500">${r.product.size.split('(')[0]}</span>
                             <div class="flex gap-2">
                                 <button onclick="toggleFav('${r.product.id}')" class="text-sm">${favorites.includes(r.product.id)?'❤️':'🤍'}</button>
-                                <a href="${r.product.link}" target="_blank" class="text-xs font-semibold text-miOrange hover:underline">詳情 ></a>
+                                <a href="${r.product.buyLink}" target="_blank" class="text-xs font-semibold text-miOrange hover:underline">詳情 ></a>
                             </div>
                         </div>
                     </div>
