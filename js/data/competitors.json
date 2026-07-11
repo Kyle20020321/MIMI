@@ -5,22 +5,22 @@
       "brand": "Apple",
       "name": "iPad 11\" (A16)",
       "market": "HK",
-      "price": 2799,
+      "price": 3599,
       "currency": "HKD",
       "source": "apple.com/hk",
-      "notes": "128GB Wi-Fi 起步價，教育優惠 HK$2,599",
-      "lastUpdated": "2026-07-11"
+      "notes": "128GB Wi-Fi 起步價 HK$3,599；教育優惠 HK$2,599；apple.com/hk/ipad-11 产品页仍显示 HK$2,799",
+      "lastUpdated": "2026-07-12"
     },
     {
-      "id": "apple_ipad_air_m3",
+      "id": "apple_ipad_air_m4",
       "brand": "Apple",
-      "name": "iPad Air 11\" (M3)",
+      "name": "iPad Air 11\" (M4)",
       "market": "HK",
       "price": 4599,
       "currency": "HKD",
       "source": "apple.com/hk",
-      "notes": "128GB Wi-Fi 起步價",
-      "lastUpdated": "2026-07-11"
+      "notes": "128GB Wi-Fi 起步價；M3 已停产，M4 版本于 2026 年 3 月上市，价格不变",
+      "lastUpdated": "2026-07-12"
     },
     {
       "id": "samsung_tab_s10_fe",
@@ -31,7 +31,7 @@
       "currency": "HKD",
       "source": "samsung.com/hk",
       "notes": "128GB/8GB Wi-Fi 版；256GB/12GB 版 HK$6,188",
-      "lastUpdated": "2026-07-11"
+      "lastUpdated": "2026-07-12"
     },
     {
       "id": "huawei_matepad_11_5s_2026",
@@ -41,9 +41,9 @@
       "price": 3588,
       "currency": "HKD",
       "source": "fortress.com.hk / consumer.huawei.com/hk",
-      "notes": "PaperMatte 柔光版 RRP；部分渠道特價 HK$3,188",
-      "lastUpdated": "2026-07-11"
+      "notes": "RRP HK$3,588；官方限时优惠价 HK$3,188（减免 HK$400）",
+      "lastUpdated": "2026-07-12"
     }
   ],
-  "lastChecked": "2026-07-11T06:00:00+08:00"
+  "lastChecked": "2026-07-12T06:00:00+08:00"
 }
