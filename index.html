@@ -40,13 +40,15 @@
         /* 移動端導航欄 */
         @media (max-width: 640px) {
             .desktop-tabs { display: none !important; }
-            .mobile-header { flex-wrap: wrap; height: auto !important; padding: 8px 0 !important; }
-            .mobile-tabs { display: flex !important; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 4px; padding: 4px 0; }
+            .mobile-header { flex-wrap: nowrap; height: auto !important; padding: 6px 0 !important; min-height: 48px; }
+            .mobile-tabs { display: flex !important; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 4px; padding: 2px 0; }
             .mobile-tabs::-webkit-scrollbar { display: none; }
-            .mobile-tab-btn { flex-shrink: 0; padding: 6px 12px !important; font-size: 11px !important; }
-            .quiz-option { padding: 12px !important; }
+            .mobile-tab-btn { flex-shrink: 0; padding: 5px 10px !important; font-size: 11px !important; }
+            .quiz-option { padding: 10px 8px !important; }
             .quiz-option .font-semibold { font-size: 13px !important; }
-            .quiz-option .text-xs { font-size: 11px !important; }
+            .quiz-option .text-xs { font-size: 10px !important; }
+            .quiz-options { gap: 8px !important; }
+            .hero h1 { font-size: 18px !important; }
         }
         @media (min-width: 641px) {
             .mobile-tabs { display: none !important; }
@@ -58,9 +60,9 @@
     <!-- 導航欄 -->
     <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 mobile-header flex items-center justify-between">
-            <div class="flex items-center space-x-2 sm:space-x-3">
-                <div class="w-7 h-7 sm:w-8 sm:h-8 bg-miOrange rounded-lg flex items-center justify-center text-white font-bold text-base sm:text-lg">M</div>
-                <span class="text-base sm:text-xl font-bold tracking-tight text-gray-900">Xiaomi <span class="text-miOrange font-normal">平板選購助手</span></span>
+            <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 bg-miOrange rounded-lg flex items-center justify-center text-white font-bold text-base sm:text-lg shrink-0">M</div>
+                <span class="text-sm sm:text-xl font-bold tracking-tight text-gray-900 whitespace-nowrap">Xiaomi <span class="text-miOrange font-normal">平板選購助手</span></span>
             </div>
             <!-- 桌面端 Tab -->
             <div class="desktop-tabs flex space-x-1 bg-gray-100 p-1 rounded-full">
@@ -89,8 +91,8 @@
     <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
         <!-- 橫幅導言 -->
         <div class="text-center mb-6 sm:mb-10">
-            <h1 class="text-xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">尋找最適合您的小米平板</h1>
-            <p class="mt-2 sm:mt-3 text-sm sm:text-lg text-gray-500 max-w-2xl mx-auto">回答 5 個簡單問題，AI 為您推薦最佳機型。或直接瀏覽產品目錄、預算計算，一站式搞定。</p>
+            <h1 class="text-lg sm:text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">尋找最適合您的小米平板</h1>
+            <p class="mt-2 sm:mt-3 text-xs sm:text-lg text-gray-500 max-w-2xl mx-auto">回答 5 個簡單問題，AI 為您推薦最佳機型。</p>
         </div>
 
         <!-- ================= TAB 1: 智能推薦問答 ================= -->

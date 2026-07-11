@@ -72,16 +72,16 @@ const QuizEngine = (() => {
       <div class="progress-bar">
         <div class="progress-fill" style="width: ${progress}%"></div>
       </div>
-      <div class="quiz-step-label">问题 ${currentStep + 1} / ${steps.length}</div>
+      <div class="quiz-step-label">問題 ${currentStep + 1} / ${steps.length}</div>
       <div class="quiz-question">${step.question}</div>
       <div class="quiz-desc">${step.desc}</div>
-      <div class="quiz-options">
+      <div class="quiz-options" style="grid-template-columns: repeat(${step.options.length <= 3 ? step.options.length : (step.options.length <= 4 ? 2 : 2)}, minmax(0, 1fr));">
         ${step.options.map(opt => `
-          <div class="quiz-option ${answers[step.key] === opt.id ? 'selected' : ''}"
+          <div class="quiz-option ${answers[step.key] === opt.id ? 'selected' : ''}" style="padding: 12px 8px;"
                onclick="QuizEngine.select('${step.key}', '${opt.id}', ${step.multi || false})">
             <div class="quiz-option-icon">${opt.icon}</div>
-            <div class="quiz-option-label">${opt.label}</div>
-            ${opt.desc ? `<div class="quiz-option-desc">${opt.desc}</div>` : ''}
+            <div class="quiz-option-label" style="font-size:13px;">${opt.label}</div>
+            ${opt.desc ? `<div class="quiz-option-desc" style="font-size:11px;margin-top:2px;">${opt.desc}</div>` : ''}
           </div>
         `).join('')}
       </div>
