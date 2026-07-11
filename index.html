@@ -211,7 +211,7 @@ const SCENARIOS = [
 // ============================================================
 let currentTab = 'quiz';
 let quizStep = 1;
-let answers = { scenario:null, budget:null, size:null, connectivity:null, screenType:null, priority:null, accessory:null };
+let answers = { scenario:null, accessory:null, budget:null, size:null, priority:null };
 let selectedForCompare = [];
 let favorites = JSON.parse(localStorage.getItem('mi_tablet_favs') || '[]');
 let currentCatalogFilter = 'all';
@@ -298,36 +298,28 @@ const stepsData = {
         {value:"media",label:"🎬 日常追劇與學習",desc:"看串流影音、上網課，偏好立體聲與大螢幕。"},
         {value:"reading",label:"📖 隨行閱讀/給兒童",desc:"看電子書、網頁，或供兒童作簡單娛樂學習。"}
     ]},
-    2: { title:"💰 第二步：您的預算範圍？", options:[
+    2: { title:"🔧 第二步：需要搭配配件使用嗎？", options:[
+        {value:"none",label:"🚫 不需要",desc:"純平板使用，簡單方便。"},
+        {value:"stylus",label:"✍️ 手寫筆",desc:"筆記、繪畫、標註，提升效率。"},
+        {value:"keyboard",label:"⌨️ 鍵盤",desc:"辦公打字、文書處理。"},
+        {value:"both",label:"✍️⌨️ 手寫筆+鍵盤",desc:"完整生產力，替代筆電。"}
+    ]},
+    3: { title:"💰 第三步：您的預算範圍？", options:[
         {value:"low",label:"🪙 實惠入門 (HK$1,500以下)",desc:"滿足基本需求，最高性價比。"},
         {value:"mid",label:"⚖️ 均衡中階 (HK$1,500-$3,000)",desc:"性能與價格最佳平衡。"},
         {value:"premium",label:"💎 高端旗艦 (HK$3,000以上)",desc:"追求極致螢幕與頂級體驗。"}
     ]},
-    3: { title:"📏 第三步：您偏好的螢幕尺寸？", options:[
+    4: { title:"📏 第四步：您偏好的螢幕尺寸？", options:[
         {value:"compact",label:"🎒 輕巧便攜 (10吋以下)",desc:"單手好拿，適合隨身攜帶。"},
         {value:"large",label:"🖥️ 寬廣視野 (10吋以上)",desc:"大視野利於多工作業與追劇。"}
     ]},
-    4: { title:"📶 第四步：需要插SIM卡使用流動數據嗎？", options:[
-        {value:"wifi",label:"📶 只用WiFi",desc:"在室內/有WiFi環境下使用，慳錢之選。"},
-        {value:"sim",label:"📱 需要4G/5G",desc:"出門也要上網，不受WiFi限制。"}
-    ]},
-    5: { title:"✨ 第五步：喜歡哪種螢幕質感？", options:[
-        {value:"standard",label:"🖥️ 標準亮面屏",desc:"色彩鮮豔，追劇打機首選。"},
-        {value:"matte",label:"📕 柔光護眼屏",desc:"防眩光、護眼，長時間閱讀/書寫更舒適。"}
-    ]},
-    6: { title:"⚡ 第六步：您最看重什麼？", options:[
+    5: { title:"⚡ 第五步：您最看重什麼？", options:[
         {value:"performance",label:"⚡ 性能",desc:"芯片速度、流暢度"},
         {value:"battery",label:"🔋 續航",desc:"電池容量、充電速度"},
         {value:"display",label:"🖥️ 屏幕",desc:"顯示效果、刷新率"},
         {value:"price",label:"💰 性價比",desc:"價格實惠、夠用就好"},
         {value:"portable",label:"🏃 便攜",desc:"輕薄、單手可握"},
         {value:"stylus",label:"✍️ 手寫筆",desc:"筆記、繪畫、標註"}
-    ]},
-    7: { title:"🔧 第七步：需要哪些配件？", options:[
-        {value:"none",label:"🚫 不需要",desc:"純平板使用"},
-        {value:"stylus",label:"✍️ 手寫筆",desc:"筆記/繪畫"},
-        {value:"keyboard",label:"⌨️ 鍵盤",desc:"辦公/打字"},
-        {value:"both",label:"✍️⌨️ 都要",desc:"完整生產力"}
     ]}
 };
 
@@ -359,7 +351,7 @@ function renderQuiz() {
 }
 
 function handleAnswer(value) {
-    const keys = ['scenario','budget','size','priority','accessory'];
+    const keys = ['scenario','accessory','budget','size','priority'];
     answers[keys[quizStep-1]] = value;
     if (quizStep === 5) { showRecommendation(); return; }
     quizStep++;
@@ -370,7 +362,7 @@ function prevStep() { if (quizStep > 1) { quizStep--; renderQuiz(); } }
 
 function resetQuiz() {
     quizStep = 1;
-    answers = {scenario:null,budget:null,size:null,priority:null,accessory:null};
+    answers = {scenario:null,accessory:null,budget:null,size:null,priority:null};
     document.getElementById('quiz-card').classList.remove('hidden');
     document.getElementById('result-card').classList.add('hidden');
     renderQuiz();
@@ -382,6 +374,20 @@ function resetQuiz() {
 function calculateMatches() {
     return products.map(p => {
         let score = 0, reasons = [], warnings = [];
+
+        // 配件硬性篩選（最高優先級）
+        if (answers.accessory && answers.accessory !== 'none') {
+            const needStylus = answers.accessory === 'stylus' || answers.accessory === 'both';
+            const needKeyboard = answers.accessory === 'keyboard' || answers.accessory === 'both';
+            const hasStylus = p.stylus;
+            const hasKeyboard = p.keyboard;
+            
+            if (needStylus && !hasStylus) { score -= 30; warnings.push('不支持手寫筆'); }
+            if (needKeyboard && !hasKeyboard) { score -= 30; warnings.push('不支持鍵盤'); }
+            if (needStylus && hasStylus) { score += 15; reasons.push('支持手寫筆'); }
+            if (needKeyboard && hasKeyboard) { score += 15; reasons.push('支持鍵盤'); }
+            if (needStylus && needKeyboard && hasStylus && hasKeyboard) { score += 10; reasons.push('手寫筆+鍵盤全支持'); }
+        }
 
         // 用途 (25分)
         if (answers.scenario) {
@@ -400,23 +406,6 @@ function calculateMatches() {
             if (p.screenType === answers.size) { score += 15; reasons.push('尺寸匹配'); }
             else { warnings.push('尺寸不匹配'); }
         }
-        // 連接方式 (15分)
-        if (answers.connectivity) {
-            const hasSim = p.extraVersions && p.extraVersions.some(v => v.includes('SIM') || v.includes('4G') || v.includes('5G'));
-            const is5G = p.id.includes('5g');
-            if (answers.connectivity === 'wifi') { score += 15; reasons.push('WiFi版，價格更實惠'); }
-            else if (answers.connectivity === 'sim' && (hasSim || is5G)) { score += 15; reasons.push('支持流動數據'); }
-            else if (answers.connectivity === 'sim' && !hasSim && !is5G) { score += 0; warnings.push('僅WiFi版'); }
-            else { score += 10; }
-        }
-        // 螢幕質感 (10分)
-        if (answers.screenType) {
-            const hasMatte = p.variants && p.variants.some(v => v.label && v.label.includes('柔光'));
-            if (answers.screenType === 'standard') { score += 10; reasons.push('標準亮面屏'); }
-            else if (answers.screenType === 'matte' && hasMatte) { score += 10; reasons.push('柔光護眼屏可選'); }
-            else if (answers.screenType === 'matte' && !hasMatte) { score += 0; warnings.push('無柔光版'); }
-            else { score += 5; }
-        }
         // 優先級 (10分)
         if (answers.priority) {
             switch(answers.priority) {
@@ -427,15 +416,6 @@ function calculateMatches() {
                 case 'portable': if (p.weight<=300) { score+=10; reasons.push('超輕機身'); } else score+=2; break;
                 case 'stylus': if (p.stylus) { score+=10; reasons.push('支持手寫筆'); } else { warnings.push('不支持手寫筆'); } break;
             }
-        }
-        // 配件 (5分)
-        if (answers.accessory) {
-            if (answers.accessory==='none') score+=5;
-            else if (answers.accessory==='stylus'&&p.stylus) { score+=5; reasons.push('手寫筆支持'); }
-            else if (answers.accessory==='keyboard'&&p.keyboard) { score+=5; reasons.push('鍵盤支持'); }
-            else if (answers.accessory==='keyboard'&&!p.keyboard) { score+=0; warnings.push('不支持鍵盤'); }
-            else if (answers.accessory==='both'&&p.stylus&&p.keyboard) { score+=5; reasons.push('手寫筆+鍵盤全支持'); }
-            else { score+=2; warnings.push('配件不完全匹配'); }
         }
         score += p.rating * 2;
         return { product:p, score:Math.min(100,Math.round(score)), reasons, warnings };
