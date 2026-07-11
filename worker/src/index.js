@@ -78,8 +78,8 @@ function mapRecord(record) {
     creative: '創意設計', reading: '閱讀', portable: '便攜出行',
     kids: '兒童教育', outdoor: '戶外辦公'
   };
-  const budgetLabels = { low: '入門級', mid: '主流級', premium: '旗艦級' };
-  const sizeLabels = { compact: '小屏', standard: '標準', large: '大屏' };
+  const budgetLabels = { low: '入門級 HK$1,500以下', mid: '主流級 HK$1,500–3,000', premium: '旗艦級 HK$3,000以上' };
+  const sizeLabels = { compact: '小屏 ≤9吋', standard: '標準 10-11吋', large: '大屏 ≥12吋' };
   const priorityLabels = {
     performance: '性能', battery: '續航', display: '屏幕',
     price: '性價比', portable: '便攜', stylus: '手寫筆'
@@ -90,7 +90,7 @@ function mapRecord(record) {
   const scenarios = Array.isArray(a.scenario) ? a.scenario : (a.scenario ? [a.scenario] : []);
 
   return {
-    '階段數': false,  // 預設 checkbox 為 false
+    '時間戳': new Date(record.timestamp).getTime() || null,
     '場景': scenarios.map(s => scenarioLabels[s] || s).join(', ') || '',
     '預算': budgetLabels[a.budget] || a.budget || '',
     '尺寸偏好': sizeLabels[a.size] || a.size || '',
@@ -98,7 +98,7 @@ function mapRecord(record) {
     '配件需求': accessoryLabels[a.accessory] || a.accessory || '',
     '推薦產品': record.topProduct || '',
     '匹配度': record.topScore || 0,
-    '穩健信息': record.deviceInfo || '',
+    '設備信息': record.deviceInfo || '',
     '已同步': true,
   };
 }

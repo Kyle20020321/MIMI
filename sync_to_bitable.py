@@ -25,8 +25,8 @@ SCENARIO_LABELS = {
     "creative": "創意設計", "reading": "閱讀", "portable": "便攜出行",
     "kids": "兒童教育", "outdoor": "戶外辦公"
 }
-BUDGET_LABELS = {"low": "入門級", "mid": "主流級", "premium": "旗艦級"}
-SIZE_LABELS = {"compact": "小屏", "standard": "標準", "large": "大屏"}
+BUDGET_LABELS = {"low": "入門級 HK$1,500以下", "mid": "主流級 HK$1,500–3,000", "premium": "旗艦級 HK$3,000以上"}
+SIZE_LABELS = {"compact": "小屏 ≤9吋", "standard": "標準 10-11吋", "large": "大屏 ≥12吋"}
 PRIORITY_LABELS = {
     "performance": "性能", "battery": "續航", "display": "屏幕",
     "price": "性價比", "portable": "便攜", "stylus": "手寫筆"
@@ -54,7 +54,7 @@ def map_record(record):
         scenarios = [scenarios]
 
     return {
-        "階段數": False,
+        "時間戳": int(record.get('timestamp', '').replace('T', ' ').replace('Z', '')[:19].replace('-', '/') if record.get('timestamp') else '') or None,
         "場景": ", ".join(SCENARIO_LABELS.get(s, s) for s in scenarios),
         "預算": BUDGET_LABELS.get(answers.get("budget", ""), answers.get("budget", "")),
         "尺寸偏好": SIZE_LABELS.get(answers.get("size", ""), answers.get("size", "")),
@@ -62,7 +62,7 @@ def map_record(record):
         "配件需求": ACCESSORY_LABELS.get(answers.get("accessory", ""), answers.get("accessory", "")),
         "推薦產品": record.get("topProduct", ""),
         "匹配度": record.get("topScore", 0),
-        "穩健信息": record.get("deviceInfo", ""),
+        "設備信息": record.get("deviceInfo", ""),
         "已同步": True,
     }
 
