@@ -270,12 +270,12 @@ const PRODUCTS = [
     ram: 4,
     storage: 64,
     cameras: { rear: "8MP", front: "5MP" },
-    speakers: 4,
+    speakers: 2,
     stylus: false,
     keyboard: false,
     weight: 406,
     thickness: 7.4,
-    os: "HyperOS 2.0",
+    os: "HyperOS 3.0",
     connectivity: ["Wi-Fi 5", "Bluetooth 5.1"],
     colors: ["Graphite Gray", "Silver"],
     scenarios: ["reading", "media", "kids"],
@@ -285,8 +285,8 @@ const PRODUCTS = [
     cons: ["性能较弱", "存储较小"],
     rating: 4.1,
     targetUser: "老人、电子书爱好者",
-    buyLink: "https://www.mi.com/hk/product/redmi-pad-2-97/",
-    lastUpdated: "2026-07-12"
+    buyLink: "https://www.mi.com/hk/product/redmi-pad-2-9-7-inch/",
+    lastUpdated: "2026-07-24"
   },
   {
     id: "redmi_pad_2_kids",
