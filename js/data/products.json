@@ -175,8 +175,8 @@
     "rating": 4.6,
     "tag": "均衡之選",
     "tagEn": "Balanced Choice",
-    "highlight": "Snapdragon 8s Gen 4 + 120Hz + 四揚聲器",
-    "highlightEn": "Snapdragon 8s Gen 4 + 120Hz + quad speakers",
+    "highlight": "Snapdragon 8s Gen 4 + 144Hz + 四揚聲器",
+    "highlightEn": "Snapdragon 8s Gen 4 + 144Hz + quad speakers",
     "sizeLabel": "11.2吋",
     "size": 11.2,
     "panel": "LCD",
@@ -261,11 +261,11 @@
     "refreshRate": 165,
     "chip": "MediaTek Dimensity 9400+",
     "ram": 8,
-    "storage": 128,
+    "storage": 256,
     "battery": 7500,
     "charging": "67W Turbo Charge",
     "weight": 326,
-    "stylus": false,
+    "stylus": true,
     "keyboard": false,
     "colors": [
       "灰色",
@@ -317,12 +317,10 @@
       "Great value"
     ],
     "cons": [
-      "不支持手寫筆",
       "電池容量較小",
       "螢幕較小"
     ],
     "consEn": [
-      "No stylus",
       "Smaller battery",
       "Smaller screen"
     ]
@@ -345,8 +343,8 @@
     "panel": "LCD",
     "refreshRate": 120,
     "chip": "Snapdragon 7s Gen 4",
-    "ram": 8,
-    "storage": 256,
+    "ram": 6,
+    "storage": 128,
     "battery": 12000,
     "charging": "33W Charging",
     "weight": 610,
@@ -593,7 +591,7 @@
     "battery": 9000,
     "charging": "18W Charging",
     "weight": 510,
-    "stylus": false,
+    "stylus": true,
     "keyboard": false,
     "colors": [
       "石墨灰",
@@ -645,12 +643,10 @@
     ],
     "cons": [
       "不支持鍵盤",
-      "不支持手寫筆",
       "刷新率較低"
     ],
     "consEn": [
       "No keyboard",
-      "No stylus support",
       "Lower refresh rate"
     ]
   },
