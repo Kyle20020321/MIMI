@@ -672,7 +672,7 @@
     "storage": 64,
     "battery": 7600,
     "charging": "18W Charging",
-    "weight": 401,
+    "weight": 406,
     "stylus": true,
     "keyboard": false,
     "colors": [
@@ -713,22 +713,22 @@
     ],
     "extraVersions": [],
     "pros": [
-      "401g輕巧",
+      "406g輕巧",
       "9.7吋便攜",
-      "價格實惠"
+      "價格實惠",
+      "支持手寫筆"
     ],
     "prosEn": [
-      "401g lightweight",
+      "406g lightweight",
       "9.7\" portable",
-      "Affordable price"
+      "Affordable price",
+      "Stylus support"
     ],
     "cons": [
-      "不支持手寫筆",
       "不支持鍵盤",
       "電池較小"
     ],
     "consEn": [
-      "No stylus",
       "No keyboard",
       "Smaller battery"
     ]
@@ -740,7 +740,7 @@
     "desc": "專為兒童設計的平板，柔光護眼屏+保護殼+繪畫筆，守護孩子視力的同時寓教於樂。",
     "descEn": "Designed for kids — matte eye-care display, protective case, and drawing pen. Safe and fun learning.",
     "series": "Redmi",
-    "price": 1799,
+    "price": 1599,
     "rating": 4.5,
     "tag": "兒童教育",
     "tagEn": "Kids & Education",
@@ -783,7 +783,7 @@
       {
         "ram": 4,
         "storage": 128,
-        "price": 1799,
+        "price": 1599,
         "label": ""
       }
     ],
